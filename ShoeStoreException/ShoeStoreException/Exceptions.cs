@@ -66,4 +66,7 @@ public static class Exceptions
 
     public static BaseException SaveChanges(Exception innerException) =>
         new("Ошибка при сохранении данных", innerException);
+
+    public static BaseException Unknown(Exception innerException) =>
+        new($"Непредвиденное исключение: {innerException.Message}", innerException);
 }
