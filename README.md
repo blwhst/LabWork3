@@ -25,6 +25,8 @@ dotnet run --project ShoeStore.Web
 3. SQL Server Management Studio 22
 4. Microsoft.EntityFrameworkCore.SqlServer 10.0.12
 5. Microsoft.EntityFrameworkCore.Tools 10.0.12
+6. NLog 6.2.1
+7. NLog.Extensions.Logging 6.2.1
 
 ## Контрибьютинг
 
