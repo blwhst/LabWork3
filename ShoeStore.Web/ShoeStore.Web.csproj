@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_KB_164811.png" Link="wwwroot\img\IMG_KB_164811.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_KB_164816.png" Link="wwwroot\img\IMG_KB_164816.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_KB_185501.png" Link="wwwroot\img\IMG_KB_185501.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_KSd_185508.png" Link="wwwroot\img\IMG_KSd_185508.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_KSd_195207.png" Link="wwwroot\img\IMG_KSd_195207.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_KSho_185512.png" Link="wwwroot\img\IMG_KSho_185512.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_KS_195213.png" Link="wwwroot\img\IMG_KS_195213.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_KS_195217.png" Link="wwwroot\img\IMG_KS_195217.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_KS_195222.png" Link="wwwroot\img\IMG_KS_195222.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_MB_174349.png" Link="wwwroot\img\IMG_MB_174349.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_MB_191200.png" Link="wwwroot\img\IMG_MB_191200.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_MB_191205.png" Link="wwwroot\img\IMG_MB_191205.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_MSho_190514.png" Link="wwwroot\img\IMG_MSho_190514.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_MSho_190518.png" Link="wwwroot\img\IMG_MSho_190518.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_MSho_191612.png" Link="wwwroot\img\IMG_MSho_191612.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_MS_185531.png" Link="wwwroot\img\IMG_MS_185531.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_MS_185532.png" Link="wwwroot\img\IMG_MS_185532.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_MS_185533.png" Link="wwwroot\img\IMG_MS_185533.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WB_170859.png" Link="wwwroot\img\IMG_WB_170859.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WB_170905.png" Link="wwwroot\img\IMG_WB_170905.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WB_170906.png" Link="wwwroot\img\IMG_WB_170906.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WSd_174332.png" Link="wwwroot\img\IMG_WSd_174332.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WSd_185156.png" Link="wwwroot\img\IMG_WSd_185156.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WSd_185551.png" Link="wwwroot\img\IMG_WSd_185551.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WSho_174409.png" Link="wwwroot\img\IMG_WSho_174409.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WSho_185202.png" Link="wwwroot\img\IMG_WSho_185202.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WSho_185545.png" Link="wwwroot\img\IMG_WSho_185545.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WS_174110.png" Link="wwwroot\img\IMG_WS_174110.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WS_185528.png" Link="wwwroot\img\IMG_WS_185528.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WS_185535.png" Link="wwwroot\img\IMG_WS_185535.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Images\IMG_WS_185538.png" Link="wwwroot\img\IMG_WS_185538.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\picture.png" Link="wwwroot\img\picture.png" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Чудо Обувь.ico" Link="wwwroot\img\Чудо Обувь.ico" />
+    <Content Include="..\..\..\..\TRPO\ДЭ\Ресурсы КИМ_09.02.07-2-2027\Задание 1\Прил_2_ОЗ_КИМ_09.02.07-2-2027\Чудо Обувь.png" Link="wwwroot\img\Чудо Обувь.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShoeStore.Shared\ShoeStore.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
+</Project>

@@ -4,6 +4,7 @@ using ShoeStore.Services.Interfaces;
 using ShoeStore.Services.Validators;
 using ShoeStoreData.Contexts;
 using ShoeStoreData.Models;
+using ShoeStoreException;
 
 namespace ShoeStore.Services.Implementations;
 
@@ -20,7 +21,11 @@ public class UserService : IUserService
 
     public async Task<User?> GetByLoginAsync(string login)
     {
+        if (string.IsNullOrWhiteSpace(login))
+            throw Exceptions.InvalidLogin(login ?? "");
+
         _logger.LogInformation("Поиск пользователя по логину: {Login}", login);
+
         return await _context.Users
             .Include(u => u.Role)
             .FirstOrDefaultAsync(u => u.Login == login);
@@ -41,13 +46,21 @@ public class UserService : IUserService
             .FirstOrDefaultAsync(u => u.Login == user.Login);
 
         if (existingUser != null)
-            throw new ArgumentException($"Пользователь с логином '{user.Login}' уже существует");
+            throw Exceptions.DuplicateLogin(user.Login);
 
         _context.Users.Add(user);
-        await _context.SaveChangesAsync();
 
-        _logger.LogInformation("Создан новый пользователь: {Login} (ID: {Id})", user.Login, user.UserId);
-        return user;
+        try
+        {
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Создан новый пользователь: {Login} (ID: {Id})",
+                user.Login, user.UserId);
+            return user;
+        }
+        catch (Exception ex)
+        {
+            throw Exceptions.SaveChanges(ex);
+        }
     }
 
     public async Task UpdateUserAsync(User user)
@@ -56,7 +69,7 @@ public class UserService : IUserService
 
         var existing = await _context.Users.FindAsync(user.UserId);
         if (existing == null)
-            throw new Exception("Пользователь не найден");
+            throw Exceptions.UserNotFound(user.Login);
 
         existing.Login = user.Login;
         existing.LastName = user.LastName;
@@ -64,8 +77,15 @@ public class UserService : IUserService
         existing.MiddleName = user.MiddleName;
         existing.RoleId = user.RoleId;
 
-        await _context.SaveChangesAsync();
-        _logger.LogInformation("Обновлен пользователь ID: {Id}", user.UserId);
+        try
+        {
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Обновлён пользователь ID: {Id}", user.UserId);
+        }
+        catch (Exception ex)
+        {
+            throw Exceptions.SaveChanges(ex);
+        }
     }
 
     public async Task DeleteUserAsync(int id)
@@ -74,11 +94,19 @@ public class UserService : IUserService
         if (user == null)
         {
             _logger.LogWarning("Пользователь с Id {Id} не найден для удаления", id);
-            return;
+            throw Exceptions.UserNotFound($"ID {id}");
         }
 
         _context.Users.Remove(user);
-        await _context.SaveChangesAsync();
-        _logger.LogInformation("Удален пользователь ID: {Id}", id);
+
+        try
+        {
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Удалён пользователь ID: {Id}", id);
+        }
+        catch (Exception ex)
+        {
+            throw Exceptions.SaveChanges(ex);
+        }
     }
 }

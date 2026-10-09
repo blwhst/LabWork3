@@ -1,0 +1,37 @@
+﻿@page
+@model ShoeStore.Web.Pages.CheckoutModel
+@{
+    ViewData["Title"] = "Оформление заказа";
+}
+
+<h2>Оформление заказа</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert-error">
+        @foreach (var err in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@err.ErrorMessage</div>
+        }
+    </div>
+}
+
+@if (Model.Items.Count == 0)
+{
+    <p>Корзина пуста.</p>
+    return;
+}
+
+<ul>
+    @foreach (var it in Model.Items)
+    {
+        <li>@it.ProductName (р. @it.Size) × @it.Quantity = @it.Sum.ToString("N0") ₽</li>
+    }
+</ul>
+
+<p class="total">Итого: <b>@Model.Total.ToString("N0") ₽</b></p>
+
+<form method="post">
+    <button class="btn btn-primary" type="submit">Подтвердить заказ</button>
+    <a asp-page="/Cart">Назад в корзину</a>
+</form>

@@ -1,0 +1,35 @@
+﻿@page
+@model ShoeStore.Web.Pages.OrdersModel
+@{ ViewData["Title"] = "Все заказы"; }
+
+<h2>Все заказы</h2>
+
+<table class="table">
+    <thead>
+        <tr><th>№</th><th>Дата</th><th>Клиент</th><th>Сумма</th><th>Действия</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var o in Model.Orders)
+    {
+        <tr>
+            <td>@o.OrderId</td>
+            <td>@o.OrderDate.ToString("dd.MM.yyyy")</td>
+            <td>@o.CustomerFullName</td>
+            <td>@o.TotalSum.ToString("N0") ₽</td>
+            <td>
+                <a asp-page="/OrderDetails" asp-route-id="@o.OrderId">Детали</a>
+                @if (Model.IsAdmin)
+                {
+                    <a asp-page="/Admin/EditOrder" asp-route-id="@o.OrderId">Ред.</a>
+                }
+                <form method="post" asp-page-handler="Delete" style="display:inline">
+                    <input type="hidden" name="id" value="@o.OrderId" />
+                    <button type="submit" class="btn-remove">✕</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a asp-page="/Admin/EditOrder" class="btn btn-primary">Добавить заказ</a>

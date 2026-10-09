@@ -5,6 +5,7 @@ using ShoeStore.Services.Models;
 using ShoeStore.Services.Validators;
 using ShoeStoreData.Contexts;
 using ShoeStoreData.Models;
+using ShoeStoreException;
 
 namespace ShoeStore.Services.Implementations;
 
@@ -25,7 +26,9 @@ public class ProductService : IProductService
 
         var query = _context.Products
             .Include(p => p.Subcategory)
-            .ThenInclude(s => s.Category)
+                .ThenInclude(s => s.Category)
+            .Include(p => p.Materials)
+            .Include(p => p.ProductItems)
             .AsQueryable();
 
         if (filter.CategoryId.HasValue)
@@ -68,13 +71,19 @@ public class ProductService : IProductService
     public async Task<Product?> GetProductByIdAsync(int id)
     {
         _logger.LogInformation("Поиск товара по Id: {Id}", id);
+
         var product = await _context.Products
             .Include(p => p.Materials)
+            .Include(p => p.ProductItems)
             .Include(p => p.Subcategory)
+                .ThenInclude(s => s.Category)
             .FirstOrDefaultAsync(p => p.ProductId == id);
 
         if (product == null)
+        {
             _logger.LogWarning("Товар с Id {Id} не найден", id);
+            throw Exceptions.ProductNotFound($"ID {id}", "");
+        }
 
         return product;
     }
@@ -91,10 +100,18 @@ public class ProductService : IProductService
         ProductValidator.Validate(product);
 
         _context.Products.Add(product);
-        await _context.SaveChangesAsync();
 
-        _logger.LogInformation("Создан новый товар: {Name} (ID: {Id})", product.Name, product.ProductId);
-        return product;
+        try
+        {
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Создан новый товар: {Name} (ID: {Id})",
+                product.Name, product.ProductId);
+            return product;
+        }
+        catch (Exception ex)
+        {
+            throw Exceptions.SaveChanges(ex);
+        }
     }
 
     public async Task UpdateProductAsync(Product product)
@@ -105,7 +122,8 @@ public class ProductService : IProductService
             .Include(p => p.Materials)
             .FirstOrDefaultAsync(p => p.ProductId == product.ProductId);
 
-        if (existing == null) throw new Exception("Товар не найден");
+        if (existing == null)
+            throw Exceptions.ProductNotFound(product.Name, product.Manufacturer);
 
         existing.Name = product.Name;
         existing.Price = product.Price;
@@ -121,22 +139,38 @@ public class ProductService : IProductService
             var materials = await _context.Materials
                 .Where(m => materialIds.Contains(m.MaterialId))
                 .ToListAsync();
+
             foreach (var m in materials)
                 existing.Materials.Add(m);
         }
 
-        await _context.SaveChangesAsync();
-        _logger.LogInformation("Обновлен товар ID: {Id}", product.ProductId);
+        try
+        {
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Обновлён товар ID: {Id}", product.ProductId);
+        }
+        catch (Exception ex)
+        {
+            throw Exceptions.SaveChanges(ex);
+        }
     }
 
     public async Task DeleteProductAsync(int id)
     {
         var product = await _context.Products.FindAsync(id);
-        if (product != null)
+        if (product == null)
+            throw Exceptions.ProductNotFound($"ID {id}", "");
+
+        _context.Products.Remove(product);
+
+        try
         {
-            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
-            _logger.LogInformation("Удален товар ID: {Id}", id);
+            _logger.LogInformation("Удалён товар ID: {Id}", id);
+        }
+        catch (Exception ex)
+        {
+            throw Exceptions.SaveChanges(ex);
         }
     }
 }

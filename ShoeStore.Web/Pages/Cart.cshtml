@@ -1,0 +1,76 @@
+﻿@page
+@model ShoeStore.Web.Pages.CartModel
+@{
+    ViewData["Title"] = "Корзина";
+}
+
+<h2>Корзина</h2>
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert-error">@Model.Error</div>
+}
+
+@if (!Model.Items.Any())
+{
+    <p>Корзина пуста. <a asp-page="/Index">Перейти в каталог</a></p>
+    return;
+}
+
+<table class="table">
+    <thead>
+        <tr><th>Товар</th><th>Размер</th><th>Цена</th><th>Кол-во</th><th>Сумма</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (var it in Model.Items)
+        {
+            var stock = Model.Stock.TryGetValue(it.ProductItemId, out var s) ? s : 0;
+            var tooMany = it.Quantity > stock;
+
+            <tr>
+                <td>@it.ProductName</td>
+                <td>@it.Size</td>
+                <td>@it.Price.ToString("N0") ₽</td>
+                <td>
+                    <form method="post" asp-page-handler="Update" style="display:inline">
+                        <input type="hidden" name="productItemId" value="@it.ProductItemId" />
+                        <input type="number"
+                               name="qty"
+                               class="qty-input"
+                               data-max="@stock"
+                               value="@it.Quantity"
+                               min="1"
+                               max="@stock"
+                               style="width:70px" />
+                        <button type="submit">OK</button>
+                    </form>
+                    <div class="muted" style="font-size:12px">
+                        на складе: @stock шт.
+                        @if (tooMany)
+                        {
+                            <span style="color:#c00"> — превышает остаток</span>
+                        }
+                    </div>
+                </td>
+                <td>@it.Sum.ToString("N0") ₽</td>
+                <td>
+                    <form method="post" asp-page-handler="Remove" style="display:inline">
+                        <input type="hidden" name="productItemId" value="@it.ProductItemId" />
+                        <button type="submit" class="btn-remove">✕</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p class="total">Итого: <b>@Model.Total.ToString("N0") ₽</b></p>
+
+@if (Model.Items.All(i => i.Quantity <= (Model.Stock.TryGetValue(i.ProductItemId, out var s2) ? s2 : 0)))
+{
+    <a asp-page="/Checkout" class="btn btn-primary">Оформить заказ</a>
+}
+else
+{
+    <p class="alert-error">Исправьте количества: по некоторым позициям запрошено больше, чем есть на складе.</p>
+}

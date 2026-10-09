@@ -12,7 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ShoeStore.Shared\ShoeStore.Shared.csproj" />
     <ProjectReference Include="..\ShoeStoreData\ShoeStoreData\ShoeStoreData.csproj" />
+    <ProjectReference Include="..\ShoeStoreException\ShoeStoreException\ShoeStoreExceptio.csproj" />
+    <ProjectReference Include="..\ShoeStoreException\ShoeStoreException\ShoeStoreException.csproj" />
   </ItemGroup>
 
 </Project>

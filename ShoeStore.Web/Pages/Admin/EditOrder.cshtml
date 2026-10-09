@@ -1,0 +1,27 @@
+﻿@page "{id:int?}"
+@model ShoeStore.Web.Pages.Admin.EditOrderModel
+@{ ViewData["Title"] = Model.OrderId.HasValue ? "Редактирование заказа" : "Новый заказ"; }
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <label>Клиент:</label>
+    <select name="userId" class="form-control">
+        @foreach (var u in Model.Users)
+        {
+            <option value="@u.UserId" selected="@(u.UserId == Model.UserId)">@u.FullName</option>
+        }
+    </select>
+
+    <label>Позиции:</label>
+    <ul>
+        @foreach (var it in Model.Items)
+        {
+            <li>@it.ProductName (р. @it.Size) × @it.Quantity — @it.Total.ToString("N0") ₽</li>
+        }
+    </ul>
+    <p class="muted">(Форма редактирования позиций — упрощённая; для полной версии нужен UI добавления позиций.)</p>
+
+    <button class="btn btn-primary" type="submit">Сохранить</button>
+    <a asp-page="/Admin/Orders">Отмена</a>
+</form>
