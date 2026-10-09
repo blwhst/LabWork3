@@ -1,4 +1,7 @@
-﻿namespace ShoeStoreData.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace ShoeStoreData.Models;
 
 public partial class OrderItem
 {
