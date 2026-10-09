@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ShoeStore.Services/ShoeStore.Services.csproj" />
+  <Project Path="ShoeStoreData/ShoeStoreData/ShoeStoreData.csproj" />
+</Solution>
