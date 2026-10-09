@@ -74,8 +74,11 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => new { e.OrderId, e.ProductItemId }, "UQ_OrderItem").IsUnique();
 
+            entity.Property(e => e.UnitPrice).HasColumnType("decimal(10, 2)");
+
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_OrderItem_Orders");
 
             entity.HasOne(d => d.ProductItem).WithMany(p => p.OrderItems)
@@ -87,6 +90,8 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<Product>(entity =>
         {
             entity.ToTable("Product");
+
+            entity.HasIndex(e => new { e.Name, e.Manufacturer }, "UQ_Product_Name").IsUnique();
 
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.Image).HasMaxLength(260);
