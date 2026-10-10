@@ -1,0 +1,34 @@
+﻿@page "{id:int}"
+@model ShoeStore.Web.Pages.OrderDetailsModel
+@{ ViewData["Title"] = "Заказ №" + Model.Order?.OrderId; }
+
+@if (Model.Order == null)
+{
+    <p>Заказ не найден.</p>
+    return;
+}
+
+<h2>Заказ №@Model.Order.OrderId от @Model.Order.OrderDate.ToString("dd.MM.yyyy")</h2>
+<p>Клиент: <b>@Model.Order.CustomerFullName</b></p>
+
+<table class="table">
+    <thead>
+        <tr><th>Товар</th><th>Размер</th><th>Цена</th><th>Кол-во</th><th>Сумма</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var it in Model.Order.Items)
+    {
+        <tr>
+            <td>@it.ProductName</td>
+            <td>@it.Size</td>
+            <td>@it.PricePerUnit.ToString("N0") ₽</td>
+            <td>@it.Quantity</td>
+            <td>@it.Total.ToString("N0") ₽</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<p class="total">Итого: <b>@Model.Order.TotalSum.ToString("N0") ₽</b></p>
+
+<a asp-page="/Orders">Назад к списку</a>

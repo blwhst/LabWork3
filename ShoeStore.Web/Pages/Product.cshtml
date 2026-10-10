@@ -1,0 +1,68 @@
+﻿@page "{id:int}"
+@model ShoeStore.Web.Pages.ProductModel
+@{
+    ViewData["Title"] = Model.Product?.Name ?? "Товар";
+}
+
+@if (Model.Product == null)
+{
+    <p>Товар не найден.</p>
+    return;
+}
+
+@if (!string.IsNullOrEmpty(Model.CartError))
+{
+    <div class="alert-error">@Model.CartError</div>
+}
+
+<div class="product-detail">
+    <img src="~/img/@Model.Product.Image" alt="@Model.Product.Name"
+         onerror="this.src='/img/no-image.png'" />
+
+    <div>
+        <h2>@Model.Product.Name</h2>
+        <p class="muted">@Model.Product.CategoryName / @Model.Product.SubcategoryName</p>
+        <p class="muted">Производитель: @Model.Product.Manufacturer</p>
+        <p>@Model.Product.Description</p>
+
+        <p>
+            <b>Материалы:</b>
+            @string.Join(", ", Model.Product.Materials.Select(m => m.Name))
+        </p>
+
+        <p class="price">@Model.Product.Price.ToString("N0") ₽</p>
+
+        @if (!Model.IsAuthenticated)
+        {
+            <p><a asp-page="/Login">Войдите</a>, чтобы заказать.</p>
+        }
+        else if (!Model.Product.Items.Any(i => i.Quantity > 0))
+        {
+            <p class="alert-error">Товар временно отсутствует на складе.</p>
+        }
+        else
+        {
+            <form method="post" asp-page-handler="Add">
+                <input type="hidden" name="productId" value="@Model.Product.ProductId" />
+
+                <label for="sizeSelect">Размер:</label>
+                <select id="sizeSelect" name="productItemId" class="form-control">
+                    @foreach (var it in Model.Product.Items.Where(i => i.Quantity > 0))
+                    {
+                        <option value="@it.ProductItemId" data-max="@it.Quantity">
+                            @it.Size
+                        </option>
+                    }
+                </select>
+
+                <p class="muted">В наличии: <b id="stockInfo" class="stock-value">—</b> шт.</p>
+
+                <label for="quantityInput">Количество:</label>
+                <input id="quantityInput" type="text" inputmode="numeric" name="quantity" value="1"
+                       class="form-control" style="width:120px; min-width:120px; max-width:120px;" />
+
+                <button class="btn btn-primary" type="submit">В корзину</button>
+            </form>
+        }
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — Чудо Обувь</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div class="container header-inner">
+            <a asp-page="/Index" class="logo">Чудо Обувь</a>
+            <nav>
+                @{
+                    var currentPage = ViewContext.RouteData.Values["page"]?.ToString();
+                    var isHomePage = currentPage == "/Index";
+                }
+
+                @if (!isHomePage)
+                {
+                    <a href="javascript:history.back()" class="nav-back">Назад</a>
+                }
+
+                <a asp-page="/Index">Каталог</a>
+
+                @{
+                    var login = Context.Session.GetString("Login");
+                    var roleId = Context.Session.GetString("RoleId");
+                    var isAuth = !string.IsNullOrEmpty(login);
+                    var isManager = roleId == RoleIds.Manager || roleId == RoleIds.Admin;
+                }
+
+                @if (isAuth)
+                {
+                    <a asp-page="/Cart">Корзина</a>
+                    <a asp-page="/MyOrders">Мои заказы</a>
+                }
+
+                @if (isManager)
+                {
+                    <a asp-page="/Orders">Все заказы</a>
+                }
+
+                @if (isAuth)
+                {
+                    <span class="user">@login</span>
+                    <a asp-page="/Logout">Выйти</a>
+                }
+                else
+                {
+                    <a asp-page="/Login">Войти</a>
+                }
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div class="container">© 2026 Чудо Обувь</div>
+    </footer>
+
+    <script src="~/js/cart.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

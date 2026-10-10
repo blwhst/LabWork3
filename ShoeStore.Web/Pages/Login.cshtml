@@ -1,0 +1,23 @@
+﻿@page
+@model ShoeStore.Web.Pages.LoginModel
+@{ ViewData["Title"] = "Вход"; }
+
+<h2>Вход в систему</h2>
+
+@if (!string.IsNullOrEmpty(Model.ViewModel.Error))
+{
+    <div class="alert-error">@Model.ViewModel.Error</div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="ViewModel.Login"></label>
+        <input asp-for="ViewModel.Login" class="form-control" autofocus />
+        <span asp-validation-for="ViewModel.Login" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Войти</button>
+</form>
+
+<div class="hint">
+    <p>Тестовые логины: <b>admin</b>, <b>manager</b>, <b>user1</b>, <b>user2</b></p>
+</div>
