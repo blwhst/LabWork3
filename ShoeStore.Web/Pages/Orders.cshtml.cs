@@ -14,17 +14,28 @@ public class OrdersModel : PageModel
     public List<OrderDto> Orders { get; set; } = new();
     public bool IsAdmin { get; set; }
 
+    // Хранит текущий выбранный тип сортировки
+    public string CurrentSort { get; set; } = "desc";
+
     [TempData]
     public string? Error { get; set; }
 
-    public async Task<IActionResult> OnGetAsync()
+    public async Task<IActionResult> OnGetAsync(string sortByDate = "desc")
     {
         var roleId = HttpContext.Session.GetString("RoleId");
         if (roleId != RoleIds.Admin && roleId != RoleIds.Manager)
             return RedirectToPage("/Login");
 
         IsAdmin = roleId == RoleIds.Admin;
-        Orders = await _api.GetOrdersAsync() ?? new();
+        CurrentSort = sortByDate;
+
+        var rawOrders = await _api.GetOrdersAsync() ?? new();
+
+        // Логика сортировки списка заказов
+        Orders = sortByDate == "asc"
+            ? rawOrders.OrderBy(o => o.OrderDate).ToList()
+            : rawOrders.OrderByDescending(o => o.OrderDate).ToList();
+
         return Page();
     }
 
