@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] — Чудо Обувь</title>
     <link rel="stylesheet" href="~/css/site.css" />
+    <script>
+            (function () {
+                var theme = localStorage.getItem('theme');
+                if (theme) {
+                    document.documentElement.setAttribute('data-theme', theme);
+                }
+            })();
+    </script>
 </head>
 <body>
     <header>
@@ -50,6 +58,8 @@
                 {
                     <a asp-page="/Login">Войти</a>
                 }
+
+                <button id="themeToggle" class="theme-toggle" type="button">Тема</button>
             </nav>
         </div>
     </header>
@@ -63,6 +73,7 @@
     </footer>
 
     <script src="~/js/cart.js"></script>
+    <script src="~/js/theme.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
