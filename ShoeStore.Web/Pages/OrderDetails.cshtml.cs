@@ -13,6 +13,8 @@ public class OrderDetailsModel : PageModel
 
     public OrderDto? Order { get; set; }
 
+    public string BackPage { get; set; } = "/MyOrders";
+
     public async Task<IActionResult> OnGetAsync(int id)
     {
         if (string.IsNullOrEmpty(HttpContext.Session.GetString("Login")))
@@ -26,6 +28,10 @@ public class OrderDetailsModel : PageModel
 
         if (roleId == RoleIds.User && order.UserId != userId)
             return StatusCode(403);
+
+        BackPage = (roleId == RoleIds.Admin || roleId == RoleIds.Manager)
+            ? "/Orders"
+            : "/MyOrders";
 
         Order = order;
         return Page();
