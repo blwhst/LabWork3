@@ -1,0 +1,27 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Ошибка";
+}
+
+<h1 class="text-danger">Ошибка</h1>
+<h2 class="text-danger">При обработке запроса произошла ошибка.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Идентификатор запроса:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Режим разработки</h3>
+<p>
+    Переключение в среду <strong>Development</strong> отображает подробную информацию о возникшей ошибке.
+</p>
+<p>
+    <strong>Режим Development не должен быть включён на рабочем сайте.</strong>
+    Он может показать пользователям внутреннюю информацию об ошибках.
+    Для отладки на своём компьютере включите среду <strong>Development</strong>,
+    установив переменную окружения <strong>ASPNETCORE_ENVIRONMENT</strong> в значение <strong>Development</strong>,
+    и перезапустите сайт.
+</p>

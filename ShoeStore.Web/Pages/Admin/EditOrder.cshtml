@@ -1,0 +1,70 @@
+﻿@page "{id:int}"
+@model ShoeStore.Web.Pages.Admin.EditOrderModel
+@{
+    ViewData["Title"] = Model.OrderId.HasValue ? "Редактирование заказа" : "Новый заказ";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert-error">@Model.Error</div>
+}
+
+<form method="post">
+    <input type="hidden" name="OrderId" value="@Model.OrderId" />
+
+    <label>Клиент:</label>
+    <select name="userId" class="form-control">
+        @foreach (var u in Model.Users)
+        {
+            <option value="@u.UserId" selected="@(u.UserId == Model.UserId)">@u.FullName (@u.Login)</option>
+        }
+    </select>
+
+    <label>Позиции:</label>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Размер</th>
+                <th>Цена</th>
+                <th>В наличии</th>
+                <th>Количество</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Items.Count; i++)
+            {
+                var stock = Model.Stock.TryGetValue(Model.Items[i].ProductItemId, out var s) ? s : 0;
+
+                <tr>
+                    <td>
+                        @Model.Items[i].ProductName
+                        <input type="hidden" name="Items[@i].ProductItemId" value="@Model.Items[i].ProductItemId" />
+                        <input type="hidden" name="Items[@i].OrderItemId" value="@Model.Items[i].OrderItemId" />
+                        <input type="hidden" name="Items[@i].ProductName" value="@Model.Items[i].ProductName" />
+                        <input type="hidden" name="Items[@i].ProductId" value="@Model.Items[i].ProductId" />
+                        <input type="hidden" name="Items[@i].Size" value="@Model.Items[i].Size" />
+                        <input type="hidden" name="Items[@i].PricePerUnit" value="@Model.Items[i].PricePerUnit" />
+                    </td>
+                    <td>@Model.Items[i].Size</td>
+                    <td>@Model.Items[i].PricePerUnit.ToString("N0") ₽</td>
+                    <td>@stock шт.</td>
+                    <td>
+                        <input type="number" name="Items[@i].Quantity" value="@Model.Items[i].Quantity"
+                               min="1" max="@stock" class="form-control" style="width:100px" />
+                    </td>
+                    <td>
+                        <button type="submit" name="removeIndex" value="@i" formnovalidate
+                                class="btn-remove">Удалить</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button class="btn btn-primary" type="submit">Сохранить</button>
+    <a asp-page="/Orders">Отмена</a>
+</form>

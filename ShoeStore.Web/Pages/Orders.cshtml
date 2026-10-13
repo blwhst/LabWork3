@@ -1,0 +1,54 @@
+﻿@page
+@model ShoeStore.Web.Pages.OrdersModel
+@{
+    ViewData["Title"] = "Все заказы";
+}
+
+<h2>Все заказы</h2>
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="alert-error">@Model.Error</div>
+}
+
+<!-- Блок сортировки -->
+<div class="sort-container" style="margin-bottom: 15px;">
+    <form method="get">
+        <label for="sortByDate">Сортировка по дате:</label>
+        <select id="sortByDate" name="sortByDate" class="form-control" style="display: inline-block; width: auto; margin-right: 10px;">
+            <!option value="desc" @(Model.CurrentSort == "desc" ? "selected" : "")>По убыванию (сначала новые)</!option>
+            <!option value="asc" @(Model.CurrentSort == "asc" ? "selected" : "")>По возрастанию (сначала старые)</!option>
+        </select>
+        <button type="submit" class="btn btn-secondary">Применить</button>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr><th>№</th><th>Дата</th><th>Клиент</th><th>Сумма</th><th>Действия</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var o in Model.Orders)
+        {
+            <tr>
+                <td>@o.OrderId</td>
+                <td>@o.OrderDate.ToString("dd.MM.yyyy")</td>
+                <td>@o.CustomerFullName</td>
+                <td>@o.TotalSum.ToString("N0") ₽</td>
+                <td>
+                    <a asp-page="/OrderDetails" asp-route-id="@o.OrderId">Детали</a>
+                    @if (Model.IsAdmin)
+                    {
+                        <a asp-page="/Admin/EditOrder" asp-route-id="@o.OrderId">Ред.</a>
+                    }
+                    <form method="post" asp-page-handler="Delete" style="display:inline">
+                        <input type="hidden" name="id" value="@o.OrderId" />
+                        <button type="submit" class="btn-remove">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-page="/Index" class="btn btn-primary">Новый заказ</a>

@@ -1,0 +1,29 @@
+﻿@page
+@model ShoeStore.Web.Pages.MyOrdersModel
+@{ ViewData["Title"] = "Мои заказы"; }
+
+<h2>Мои заказы</h2>
+
+@if (!Model.Orders.Any())
+{
+    <p>У вас ещё нет заказов.</p>
+    return;
+}
+
+<table class="table">
+    <thead>
+        <tr><th>№</th><th>Дата</th><th>Позиций</th><th>Сумма</th><th></th></tr>
+    </thead>
+    <tbody>
+    @foreach (var o in Model.Orders)
+    {
+        <tr>
+            <td>@o.OrderId</td>
+            <td>@o.OrderDate.ToString("dd.MM.yyyy")</td>
+            <td>@o.Items.Count</td>
+            <td>@o.TotalSum.ToString("N0") ₽</td>
+            <td><a asp-page="/OrderDetails" asp-route-id="@o.OrderId">Детали</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

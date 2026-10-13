@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="ShoeStore.Api/ShoeStore.Api.csproj" />
+  <Project Path="ShoeStore.Services/ShoeStore.Services.csproj" />
+  <Project Path="ShoeStore.Shared/ShoeStore.Shared.csproj" />
+  <Project Path="ShoeStore.Web/ShoeStore.Web.csproj" />
+  <Project Path="ShoeStoreData/ShoeStoreData/ShoeStoreData.csproj" />
+  <Project Path="ShoeStoreException/ShoeStoreException/ShoeStoreException.csproj" />
+</Solution>
